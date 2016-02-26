@@ -125,7 +125,6 @@ void BreakOut::updateBallPosition(float dt)
 	if (ballSprite->getPositionY() <= gameInfoPaddingY + ballSprite->getContentSize().height / 2)
 	{
 		hasDied = true;
-		log("died");
 	}
 
 	prevPosX = ballSprite->getPositionX();
@@ -208,7 +207,11 @@ void BreakOut::onMouseDown(cocos2d::Event *event)
 	switch (eventMouse->getMouseButton())
 	{
 	case MOUSE_BUTTON_RIGHT:
-		if (!mainMenu && hasInitiallyFired && noOfPowerUp > 0)
+		if (hasInitiallyFired && noOfPowerUp == 0)
+		{
+			return;
+		}
+		if (hasInitiallyFired && noOfPowerUp > 0)
 		{
 			hasTriggeredPowerUp = true;
 		}
